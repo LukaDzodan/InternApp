@@ -67,5 +67,15 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
 
+    //Lifecycle
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
+    //Navigation
+    implementation(libs.androidx.navigation.compose)
+
+    //Google Icons
+    implementation(libs.androidx.compose.material.icons.extended)
+
 
 }
