@@ -77,5 +77,9 @@ dependencies {
     //Google Icons
     implementation(libs.androidx.compose.material.icons.extended)
 
+    //Coil
+    implementation(libs.coil.core)
+    implementation(libs.coil.compose)
+
 
 }
