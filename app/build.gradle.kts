@@ -57,5 +57,15 @@ dependencies {
     //Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+
+    //Retrofit+OkHttp+Moshi
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.moshi)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+
 
 }
