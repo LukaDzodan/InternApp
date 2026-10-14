@@ -1,23 +1,20 @@
-package com.example.internapp.data.mappers
+package com.example.internapp.data.remote.mappers
 
-import com.example.internapp.data.dto.Address
-import com.example.internapp.data.dto.ListerBrandingDto
-import com.example.internapp.data.dto.ListerDto
 import com.example.internapp.domain.model.lister.ListerAddress
 import com.example.internapp.domain.model.lister.Lister
 import com.example.internapp.domain.model.lister.ListerBranding
 
 
 interface ListerMapper {
-    fun toListerAddress(dto: Address): ListerAddress
-    fun toLister(dto: ListerDto): Lister
+    fun toListerAddress(dto: com.example.internapp.data.remote.dto.Address): ListerAddress
+    fun toLister(dto: com.example.internapp.data.remote.dto.ListerDto): Lister
 
-    fun toListerBranding(dto : ListerBrandingDto) : ListerBranding?
+    fun toListerBranding(dto : com.example.internapp.data.remote.dto.ListerBrandingDto) : ListerBranding?
 }
 
-class ListerMapperImpl : ListerMapper {
+class ListerMapperImpl : com.example.internapp.data.remote.mappers.ListerMapper {
 
-    override fun toListerAddress(dto: Address): ListerAddress = ListerAddress(
+    override fun toListerAddress(dto: com.example.internapp.data.remote.dto.Address): ListerAddress = ListerAddress(
             country = dto.country,
             locality = dto.locality,
             postalCode = dto.postalCode,
@@ -25,12 +22,12 @@ class ListerMapperImpl : ListerMapper {
             street = dto.street
         )
 
-    override fun toLister(dto: ListerDto): Lister = Lister(
+    override fun toLister(dto: com.example.internapp.data.remote.dto.ListerDto): Lister = Lister(
         logoUrl = dto.logoUrl,
         phone = dto.phone
     )
 
-    override fun toListerBranding(dto: ListerBrandingDto): ListerBranding = ListerBranding(
+    override fun toListerBranding(dto: com.example.internapp.data.remote.dto.ListerBrandingDto): ListerBranding = ListerBranding(
         adActive = dto.adActive,
         address = dto.address?.let { toListerAddress(dto.address)},
         isPremiumBranding = dto.isPremiumBranding,

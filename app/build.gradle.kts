@@ -61,7 +61,7 @@ dependencies {
 
     //Retrofit+OkHttp+Moshi
     implementation(libs.retrofit.core)
-    implementation(libs.retrofit.converter.gson)
+    implementation(libs.retrofit.converter.moshi)
     implementation(libs.moshi.kotlin)
     implementation(libs.moshi)
     implementation(libs.okhttp)
