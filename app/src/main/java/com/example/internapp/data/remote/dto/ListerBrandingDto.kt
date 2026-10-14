@@ -1,8 +1,8 @@
-package com.example.internapp.data.dto
+package com.example.internapp.data.remote.dto
 
 data class ListerBrandingDto(
     val adActive: Boolean,
-    val address: Address?,
+    val address: com.example.internapp.data.remote.dto.Address?,
     val isPremiumBranding: Boolean,
     val isQualityPartner: Boolean,
     val legalName: String,

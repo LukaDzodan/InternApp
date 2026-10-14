@@ -1,22 +1,19 @@
-package com.example.internapp.data.mappers
+package com.example.internapp.data.remote.mappers
 
-import com.example.internapp.data.dto.ListingType
-import com.example.internapp.data.dto.ListingsResponse
-import com.example.internapp.data.dto.Result
 import com.example.internapp.domain.model.property.PropertyType
 import com.example.internapp.domain.model.search_result.SearchResult
 import com.example.internapp.domain.model.search_result.SearchResultPage
 
 interface SearchResultMapper {
-    fun toSearchResult(searchResult: Result): SearchResult
-    fun toSearchResultPage(listingsResponse: ListingsResponse) : SearchResultPage
+    fun toSearchResult(searchResult: com.example.internapp.data.remote.dto.Result): SearchResult
+    fun toSearchResultPage(listingsResponse: com.example.internapp.data.remote.dto.ListingsResponse) : SearchResultPage
 }
 
 class SearchResultMapperImpl(
-    val listerMapper: ListerMapper,
-    val propertyMapper: PropertyMapper
-) : SearchResultMapper {
-    override fun toSearchResult(searchResult: Result): SearchResult {
+    val listerMapper: com.example.internapp.data.remote.mappers.ListerMapper,
+    val propertyMapper: com.example.internapp.data.remote.mappers.PropertyMapper
+) : com.example.internapp.data.remote.mappers.SearchResultMapper {
+    override fun toSearchResult(searchResult: com.example.internapp.data.remote.dto.Result): SearchResult {
         return SearchResult(
             id = searchResult.id,
             listerBranding = searchResult.listerBranding?.let { listerMapper.toListerBranding(it) },
@@ -26,7 +23,7 @@ class SearchResultMapperImpl(
         )
     }
 
-    override fun toSearchResultPage(listingsResponse: ListingsResponse): SearchResultPage {
+    override fun toSearchResultPage(listingsResponse: com.example.internapp.data.remote.dto.ListingsResponse): SearchResultPage {
         return SearchResultPage(
             from = listingsResponse.from,
             maxFrom = listingsResponse.maxFrom,
@@ -36,7 +33,7 @@ class SearchResultMapperImpl(
         )
     }
 
-    private fun toPropertyType(listingType: ListingType): PropertyType{
+    private fun toPropertyType(listingType: com.example.internapp.data.remote.dto.ListingType): PropertyType{
         return when (listingType.type) {
             "TOP" -> PropertyType.TOP
             "BASIC" -> PropertyType.BASIC

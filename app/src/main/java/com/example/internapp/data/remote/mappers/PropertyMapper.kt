@@ -1,12 +1,5 @@
-package com.example.internapp.data.mappers
+package com.example.internapp.data.remote.mappers
 
-import com.example.internapp.data.dto.AddressX
-import com.example.internapp.data.dto.Attachment
-import com.example.internapp.data.dto.Characteristics
-import com.example.internapp.data.dto.Listing
-import com.example.internapp.data.dto.Localization
-import com.example.internapp.data.dto.Prices
-import com.example.internapp.data.dto.Url
 import com.example.internapp.domain.model.property.AttachmentType
 import com.example.internapp.domain.model.property.OfferType
 import com.example.internapp.domain.model.property.PropertyAddress
@@ -19,21 +12,21 @@ import com.example.internapp.domain.model.property.PropertyPrices
 import com.example.internapp.domain.model.property.PropertyUrlType
 
 interface PropertyMapper {
-    fun toPropertyAddress(address: AddressX): PropertyAddress
-    fun toPropertyAttachment(attachment: List<Attachment>): List<PropertyAttachment>
-    fun toPropertyCharacteristic(characteristics: Characteristics): PropertyCharacteristics
-    fun toPropertyLocalization(localization: Localization): PropertyLocalization
-    fun toPropertyPrices(prices: Prices): PropertyPrices
-    fun toPropertyListing(listing : Listing) : PropertyListing
+    fun toPropertyAddress(address: com.example.internapp.data.remote.dto.AddressX): PropertyAddress
+    fun toPropertyAttachment(attachment: List<com.example.internapp.data.remote.dto.Attachment>): List<PropertyAttachment>
+    fun toPropertyCharacteristic(characteristics: com.example.internapp.data.remote.dto.Characteristics): PropertyCharacteristics
+    fun toPropertyLocalization(localization: com.example.internapp.data.remote.dto.Localization): PropertyLocalization
+    fun toPropertyPrices(prices: com.example.internapp.data.remote.dto.Prices): PropertyPrices
+    fun toPropertyListing(listing : com.example.internapp.data.remote.dto.Listing) : PropertyListing
 }
 
 
 class PropertyMapperImpl(
-    val geoMapper: GeoMapper,
-    val priceMapper: PriceMapper,
-    val listerMapper: ListerMapper,
-) : PropertyMapper {
-    override fun toPropertyAddress(address: AddressX): PropertyAddress {
+    val geoMapper: com.example.internapp.data.remote.mappers.GeoMapper,
+    val priceMapper: com.example.internapp.data.remote.mappers.PriceMapper,
+    val listerMapper: com.example.internapp.data.remote.mappers.ListerMapper,
+) : com.example.internapp.data.remote.mappers.PropertyMapper {
+    override fun toPropertyAddress(address: com.example.internapp.data.remote.dto.AddressX): PropertyAddress {
         return PropertyAddress(
             country = address.country,
             geoCoordinates = address.geoCoordinates?.let { geoMapper.toGeoLocation(address.geoCoordinates)},
@@ -44,7 +37,7 @@ class PropertyMapperImpl(
         )
     }
 
-    override fun toPropertyAttachment(attachment: List<Attachment>): List<PropertyAttachment> {
+    override fun toPropertyAttachment(attachment: List<com.example.internapp.data.remote.dto.Attachment>): List<PropertyAttachment> {
         return attachment.map { att ->
             PropertyAttachment(
                 file = att.file,
@@ -54,7 +47,7 @@ class PropertyMapperImpl(
         }
     }
 
-    override fun toPropertyCharacteristic(characteristics: Characteristics): PropertyCharacteristics {
+    override fun toPropertyCharacteristic(characteristics: com.example.internapp.data.remote.dto.Characteristics): PropertyCharacteristics {
         return PropertyCharacteristics(
             livingSpace = characteristics.livingSpace,
             lotSize = characteristics.lotSize,
@@ -63,7 +56,7 @@ class PropertyMapperImpl(
         )
     }
 
-    override fun toPropertyLocalization(localization: Localization): PropertyLocalization {
+    override fun toPropertyLocalization(localization: com.example.internapp.data.remote.dto.Localization): PropertyLocalization {
         return PropertyLocalization(
             attachments = toPropertyAttachment(localization.de.attachments),
             title = localization.de.text.title,
@@ -72,7 +65,7 @@ class PropertyMapperImpl(
         )
     }
 
-    override fun toPropertyPrices(prices: Prices): PropertyPrices {
+    override fun toPropertyPrices(prices: com.example.internapp.data.remote.dto.Prices): PropertyPrices {
         return PropertyPrices(
             currency = prices.currency,
             buy = priceMapper.toBuyPrice(prices.buy),
@@ -80,7 +73,7 @@ class PropertyMapperImpl(
         )
     }
 
-    override fun toPropertyListing(listing: Listing): PropertyListing {
+    override fun toPropertyListing(listing: com.example.internapp.data.remote.dto.Listing): PropertyListing {
         return PropertyListing(
             address = toPropertyAddress(listing.address),
             categories = toPropertyCategories(listing.categories),
@@ -101,11 +94,11 @@ class PropertyMapperImpl(
         }
     }
 
-    private fun toPropertyUrlTypes(urls: List<Url>?): List<PropertyUrlType> {
+    private fun toPropertyUrlTypes(urls: List<com.example.internapp.data.remote.dto.Url>?): List<PropertyUrlType> {
         return urls?.map { toPropertyUrlType(it) } ?: emptyList()
     }
 
-    private fun toPropertyUrlType(url: Url): PropertyUrlType {
+    private fun toPropertyUrlType(url: com.example.internapp.data.remote.dto.Url): PropertyUrlType {
         return when (url.type) {
             "VIRTUAL_TOUR" -> PropertyUrlType.VIRTUAL_TOUR
             "YOUTUBE" -> PropertyUrlType.YOUTUBE
