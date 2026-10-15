@@ -29,7 +29,7 @@ class ListingScreenViewModel @Inject constructor(
             getAllPropertiesUseCase()
                 .onSuccess { searchResultPage ->
                     _state.update {
-                        it.copy(isLoading = false,properties = searchResultPage.results)
+                        it.copy(isLoading = false, error = "",properties = searchResultPage.results.map { it.listing })
                     }
                 }
                 .onFailure { error ->

@@ -1,18 +1,19 @@
 package com.example.internapp.data.remote.mappers
 
+import com.example.internapp.data.remote.dto.ListingsResponse
 import com.example.internapp.domain.model.property.PropertyType
 import com.example.internapp.domain.model.search_result.SearchResult
 import com.example.internapp.domain.model.search_result.SearchResultPage
 
 interface SearchResultMapper {
     fun toSearchResult(searchResult: com.example.internapp.data.remote.dto.Result): SearchResult
-    fun toSearchResultPage(listingsResponse: com.example.internapp.data.remote.dto.ListingsResponse) : SearchResultPage
+    fun toSearchResultPage(listingsResponse: ListingsResponse) : SearchResultPage
 }
 
 class SearchResultMapperImpl(
-    val listerMapper: com.example.internapp.data.remote.mappers.ListerMapper,
-    val propertyMapper: com.example.internapp.data.remote.mappers.PropertyMapper
-) : com.example.internapp.data.remote.mappers.SearchResultMapper {
+    val listerMapper: ListerMapper,
+    val propertyMapper: PropertyMapper
+) : SearchResultMapper {
     override fun toSearchResult(searchResult: com.example.internapp.data.remote.dto.Result): SearchResult {
         return SearchResult(
             id = searchResult.id,

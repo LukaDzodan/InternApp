@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">InternApp</string>
+    <string name="top_bar_title">SMG InternApp</string>
 </resources>
