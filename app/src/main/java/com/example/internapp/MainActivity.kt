@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.internapp.presentation.listing_screen.ListingScreenRoute
+import com.example.internapp.presentation.navigation.NavGraph
 import com.example.internapp.ui.theme.InternAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,9 +23,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             InternAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ListingScreenRoute()
-                }
+                NavGraph()
             }
         }
     }
