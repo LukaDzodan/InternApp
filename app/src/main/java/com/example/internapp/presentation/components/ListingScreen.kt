@@ -1,5 +1,6 @@
-package com.example.internapp.presentation.listing_screen
+package com.example.internapp.presentation.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,49 +12,30 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.internapp.R
 import com.example.internapp.domain.model.property.PropertyListing
-import com.example.internapp.presentation.components.PropertyListingItem
+import com.example.internapp.presentation.common.PropertyListUiState
 
-@Composable
-fun ListingScreenRoute(
-    modifier: Modifier = Modifier,
-    onPropertyClick: (property: PropertyListing) -> Unit,
-    viewModel: ListingScreenViewModel = hiltViewModel()
-) {
-
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    val snackBarHostState = remember { SnackbarHostState() }
-
-    ListingScreen(
-        state = state,
-        snackbarHostState = snackBarHostState,
-        onPropertyClick = { propertyListing ->
-            onPropertyClick(propertyListing)
-        }
-    )
-
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListingScreen(
     modifier: Modifier = Modifier,
-    state: ListingScreenState,
+    state: PropertyListUiState,
+    navigationIconText : String,
     onPropertyClick: (property: PropertyListing) -> Unit,
+    onBookmarkClick: (propertyId: String) -> Unit,
+    onNavigationIconClick: () -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
 
@@ -61,7 +43,17 @@ fun ListingScreen(
         modifier = modifier,
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(text = stringResource(R.string.top_bar_title)) }
+                title = { Text(text = stringResource(R.string.top_bar_title)) },
+                navigationIcon = {
+                    Text(
+                        text = navigationIconText,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .clickable(onClick = onNavigationIconClick)
+                            .padding(horizontal = 16.dp, vertical = 12.dp),
+                    )
+                }
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
@@ -107,9 +99,10 @@ fun ListingScreen(
                                 ) { propertyListing ->
                                     PropertyListingItem(
                                         propertyListing = propertyListing,
-                                        isBookmarked = false,
+                                        isBookmarked = state.favoriteIds?.contains(propertyListing.id)
+                                            ?: false,
                                         onClick = { onPropertyClick(propertyListing) },
-                                        onBookmarkClick = {},
+                                        onBookmarkClick = { onBookmarkClick(propertyListing.id) },
                                     )
                                 }
                             }

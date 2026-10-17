@@ -1,5 +1,9 @@
 package com.example.internapp.di
 
+import android.content.Context
+import androidx.room.Room
+import com.example.internapp.data.local.AppDatabase
+import com.example.internapp.data.local.Dao
 import com.example.internapp.data.remote.Api
 import com.example.internapp.data.remote.mappers.GeoMapper
 import com.example.internapp.data.remote.mappers.GeoMapperImpl
@@ -19,6 +23,7 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -36,9 +41,10 @@ object AppModule {
     @Singleton
     fun providePropertyRepository(
         api : Api,
-        searchResultMapper: SearchResultMapper
+        searchResultMapper: SearchResultMapper,
+        dao: Dao
     ): PropertyRepository {
-        return PropertyRepositoryImpl(api,searchResultMapper)
+        return PropertyRepositoryImpl(api,searchResultMapper,dao)
     }
 
 
@@ -129,5 +135,26 @@ object AppModule {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .build()
+    }
+
+    //Room
+    @Provides
+    @Singleton
+    fun provideAppDataBase(
+        @ApplicationContext context: Context
+    ) : AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "intern_app.db"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteDao(
+        database: AppDatabase
+    ) : Dao {
+        return database.favoriteDao()
     }
 }

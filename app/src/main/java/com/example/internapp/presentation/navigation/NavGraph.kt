@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.internapp.presentation.detail_screen.DetailScreenRoute
+import com.example.internapp.presentation.favorites_screen.FavoriteScreenRoute
 import com.example.internapp.presentation.listing_screen.ListingScreenRoute
 
 @Composable
@@ -28,6 +29,9 @@ fun NavGraph(
                         route = Routes.detail(property.id)
                     )
                 },
+                onFavoritesClick = {
+                    navController.navigate(Routes.FAVORITE_SCREEN)
+                }
             )
         }
 
@@ -42,6 +46,17 @@ fun NavGraph(
             DetailScreenRoute(
                 propertyId = propertyId,
                 onBack = { navController.popBackStack() },
+            )
+        }
+
+        composable(
+            route = Routes.FAVORITE_SCREEN
+        ) {
+            FavoriteScreenRoute(
+                onBack = { navController.popBackStack() },
+                onPropertyClick = { property ->
+                    navController.navigate(route = Routes.detail(property.id))
+                },
             )
         }
 

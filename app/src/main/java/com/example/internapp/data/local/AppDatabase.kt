@@ -8,6 +8,6 @@ import androidx.room.RoomDatabase
     version = 1,
     exportSchema = false
 )
-abstract class Database : RoomDatabase(){
+abstract class AppDatabase : RoomDatabase(){
     abstract fun favoriteDao() : Dao
 }

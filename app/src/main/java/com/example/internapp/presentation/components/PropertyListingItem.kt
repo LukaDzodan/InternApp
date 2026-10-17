@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.StarBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -84,7 +86,7 @@ fun PropertyListingItem(
                 }
 
                 Icon(
-                    imageVector = if (isBookmarked) Icons.Filled.Star else Icons.Outlined.StarBorder,
+                    imageVector = if (isBookmarked) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                     contentDescription = null,
                     tint = if (isBookmarked) {
                         MaterialTheme.colorScheme.primary

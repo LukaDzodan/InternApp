@@ -1,5 +1,6 @@
 package com.example.internapp.presentation.detail_screen
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
@@ -68,7 +70,9 @@ fun DetailScreenRoute(
     DetailScreen(
         state = state,
         onBack = { onBack() },
-        onPropertyBookmark = {},
+        onPropertyBookmark = {
+            viewModel.toggleBookmark()
+        },
         modifier = modifier,
         snackbarHostState = snackBarHostState
     )
@@ -179,10 +183,11 @@ fun DetailScreen(
                                 if (state.isBookmarked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                                 contentDescription = null,
                                 tint = if (state.isBookmarked) MaterialTheme.colorScheme.error else Color.White,
+                                modifier = Modifier.size(40.dp)
                             )
                         }
                     }
-
+                    Log.d("Stejt je:", "${state.isBookmarked}")
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
 
                         Text(
