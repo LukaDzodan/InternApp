@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">InternApp</string>
+    <string name="top_bar_title">SMG InternApp</string>
+    <string name="top_bar_detail">Details</string>
+    <string name="top_bar_navigation_text_favorites">Favorites</string>
+    <string name="top_bar_navigation_text_back">Back</string>
 </resources>
