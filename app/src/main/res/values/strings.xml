@@ -4,4 +4,7 @@
     <string name="top_bar_detail">Details</string>
     <string name="top_bar_navigation_text_favorites">Favorites</string>
     <string name="top_bar_navigation_text_back">Back</string>
+    <string name="favorite_added">Saved to favorites</string>
+    <string name="favorite_removed">Removed from favorites</string>
+    <string name="favorite_error">Could not update favorites</string>
 </resources>
