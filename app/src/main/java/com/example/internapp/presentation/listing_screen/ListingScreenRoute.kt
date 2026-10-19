@@ -35,6 +35,7 @@ fun ListingScreenRoute(
 
     ListingScreen(
         state = state,
+        emptyStateText = stringResource(R.string.empty_listings),
         navigationIconText = stringResource(R.string.top_bar_navigation_text_favorites),
         snackbarHostState = snackBarHostState,
         onPropertyClick = { propertyListing ->

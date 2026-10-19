@@ -1,7 +1,5 @@
 package com.example.internapp.data.repository
 
-import androidx.compose.ui.res.stringResource
-import com.example.internapp.R
 import com.example.internapp.data.local.Dao
 import com.example.internapp.data.local.FavoriteEntity
 import com.example.internapp.data.remote.Api

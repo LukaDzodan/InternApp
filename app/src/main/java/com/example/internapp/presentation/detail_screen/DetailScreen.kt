@@ -187,7 +187,7 @@ fun DetailScreen(
                             )
                         }
                     }
-                    Log.d("Stejt je:", "${state.isBookmarked}")
+                    Log.d("Current bookmarked state:", "${state.isBookmarked}")
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
 
                         Text(

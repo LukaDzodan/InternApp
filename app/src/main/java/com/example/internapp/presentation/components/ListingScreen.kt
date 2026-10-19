@@ -33,6 +33,7 @@ fun ListingScreen(
     modifier: Modifier = Modifier,
     state: PropertyListUiState,
     navigationIconText : String,
+    emptyStateText : String,
     onPropertyClick: (property: PropertyListing) -> Unit,
     onBookmarkClick: (propertyId: String) -> Unit,
     onNavigationIconClick: () -> Unit,
@@ -84,6 +85,19 @@ fun ListingScreen(
                     when {
                         state.isLoading -> {
                             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                        }
+
+                        state.properties.isEmpty() -> {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(innerPadding),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = emptyStateText
+                                )
+                            }
                         }
 
                         else -> {

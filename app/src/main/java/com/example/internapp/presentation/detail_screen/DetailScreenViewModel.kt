@@ -27,7 +27,7 @@ class DetailScreenViewModel @Inject constructor(
 
     init {
         observeFavoritesIds()
-        Log.d("abetabe", propertyId)
+        Log.d("Current id:", propertyId)
     }
 
     fun load(id: String) {
@@ -60,7 +60,7 @@ class DetailScreenViewModel @Inject constructor(
                 _state.update {
                     it.copy(isBookmarked = propertyId in ids)
                 }
-                Log.d("Ids su:", "$ids")
+                Log.d("Ids list:", "$ids")
             }
         }
     }

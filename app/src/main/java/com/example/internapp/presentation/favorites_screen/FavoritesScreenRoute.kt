@@ -38,6 +38,7 @@ fun FavoriteScreenRoute(
     ListingScreen(
         state = state,
         modifier = modifier,
+        emptyStateText = stringResource(R.string.empty_favorites),
         navigationIconText = stringResource(R.string.top_bar_navigation_text_back),
         onPropertyClick = { property ->
             onPropertyClick(property)

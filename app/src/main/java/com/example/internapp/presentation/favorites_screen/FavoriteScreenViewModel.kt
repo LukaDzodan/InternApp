@@ -66,22 +66,13 @@ class FavoriteScreenViewModel @Inject constructor(
             ) { favoriteIds, properties ->
                 properties.filter { it.id in favoriteIds }
             }.collect { favoriteProperties ->
-                if (favoriteProperties.isNotEmpty()) {
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            properties = favoriteProperties,
-                            favoriteIds = favoriteProperties.map { it.id }.toSet(),
-                            error = ""
-                        )
-                    }
-                } else {
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            error = "There is no favorite properties"
-                        )
-                    }
+                _state.update {
+                    it.copy(
+                        isLoading = false,
+                        properties = favoriteProperties,
+                        favoriteIds = favoriteProperties.map { it.id }.toSet(),
+                        error = ""
+                    )
                 }
             }
         }
@@ -91,7 +82,7 @@ class FavoriteScreenViewModel @Inject constructor(
         viewModelScope.launch {
             toggleBookmarkUseCase(propertyId).fold(
                 onSuccess = { isSaved ->
-                    _snackBarMessage.send(if(isSaved) BookmarkSnackBar.Added else BookmarkSnackBar.Removed)
+                    _snackBarMessage.send(if (isSaved) BookmarkSnackBar.Added else BookmarkSnackBar.Removed)
                 },
                 onFailure = {
                     _snackBarMessage.send(BookmarkSnackBar.Error)
