@@ -1,5 +1,6 @@
 package com.example.internapp.data.remote.mappers
 
+import com.example.internapp.data.remote.dto.ListingType
 import com.example.internapp.data.remote.dto.ListingsResponse
 import com.example.internapp.domain.model.property.PropertyType
 import com.example.internapp.domain.model.search_result.SearchResult
@@ -24,7 +25,7 @@ class SearchResultMapperImpl(
         )
     }
 
-    override fun toSearchResultPage(listingsResponse: com.example.internapp.data.remote.dto.ListingsResponse): SearchResultPage {
+    override fun toSearchResultPage(listingsResponse: ListingsResponse): SearchResultPage {
         return SearchResultPage(
             from = listingsResponse.from,
             maxFrom = listingsResponse.maxFrom,
@@ -34,7 +35,7 @@ class SearchResultMapperImpl(
         )
     }
 
-    private fun toPropertyType(listingType: com.example.internapp.data.remote.dto.ListingType): PropertyType{
+    private fun toPropertyType(listingType: ListingType): PropertyType{
         return when (listingType.type) {
             "TOP" -> PropertyType.TOP
             "BASIC" -> PropertyType.BASIC
